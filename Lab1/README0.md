@@ -25,5 +25,11 @@ Lab1
   * 这个类所做的唯一 的事情是实现静态方法 chooseMove(BoardState boardState) 在它的当前版本中，这个方法只是获取合法的移动，如果该列表为空，则返回null（记住我说的有时没有 合法的移动），否则返回该列表中的第一个移动。
   * **你所要做的就是 写一个更好的移动选择函数，而不是仅仅选择第一个。**  使用minimax with αβ-pruning
   * searchDepth 设置成8
-  * 这些数字反映了一个玩家在各自的方块上的价值。请注意，边缘上的正方形具有很高的值（因为这里 的块很难取），而角落上的正方形具有更高的值（因为这里不能取块）。相比之下，相邻的方块有负 值，因为这里的一块将允许对手移动到一个高值的方块上。然后，板位置的值可以通过将白块占据的 所有方块的权重加起来，然后减去黑块占据的所有方块的权重来定义。
+  * 这些数字反映了一个玩家在各自的方块上的价值。请注意，边缘上的正方形具有很高的值（因为这里的块很难取），而角落上的正方形具有更高的值（因为这里不能取块）。相比之下，相邻的方块有负值，因为这里的一块将允许对手移动到一个高值的方块上。然后，板位置的值可以通过将白块占据的所有方块的权重加起来，然后减去黑块占据的所有方块的权重来定义。
   * 
+  
+************************************
+### 三件事： 
+#### static evaluation function
+####  calculate minimax values of board positions
+#### The top-level call: you have to select the movethat yields the best daughter (from the point of view of the computer player), rather than simply evaluating the daughter
