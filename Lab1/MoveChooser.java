@@ -30,28 +30,28 @@ public class MoveChooser {
 
     // board position = + weights of all those squares occupied by white pieces - weights of those squares occupied by black pieces.
     public static int staticEvaluation(BoardState boardState){
-    	int value = 0;
+    	int weight = 0;
     	for(int i=0; i<8; i++){
     		for(int j=0; j<8; j++){
                 // white
     			if(boardState.getContents(i, j)== 1){
-    				value += positionValue[i][j]; 
+    				weight += positionValue[i][j]; 
                 // black
     			}else if(boardState.getContents(i,j)== -1){
-    				value -= positionValue[i][j];
+    				weight -= positionValue[i][j];
     			}
     		}
     	}
-    		return value;
+    		return weight;
     } 
 
     // αβ-pruning DFS
-    public static int miniMax(BoardState boardState, int searchDepth, int alpha, int beta, Boolean maxmize){
+    public static int miniMax(BoardState boardState, int searchDepth, int alpha, int beta, Boolean maxmizingNode){
     	ArrayList<Move> move = boardState.getLegalMoves();
 		//
     	if(searchDepth==0){
     		return staticEvaluation(boardState);
-    	}else if(maxmize){
+    	}else if(maxmizingNode){
     		alpha = Integer.MIN_VALUE;  // lower bound
 
     		for(int i = 0 ; i<move.size(); i++){
@@ -92,7 +92,7 @@ public class MoveChooser {
     	int valueIndex = 0;
     	int a = Integer.MIN_VALUE;	// negative infinity
     	int b = Integer.MAX_VALUE;	// positive infinity
-    	Move bestmove = null;	// set when there are no moves available as the default value 
+    	Move bestChoice = null;	// set when there are no moves available as the default value 
 
     	for(int i=0; i<move.size(); i++){
     		BoardState temp = bs.deepCopy();
@@ -104,8 +104,8 @@ public class MoveChooser {
     		}
     	}
 
-    	bestmove = move.get(valueIndex);
-    	return bestmove;
+    	bestChoice = move.get(valueIndex);
+    	return bestChoice;
     }
  
 }
