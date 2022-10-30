@@ -1,7 +1,7 @@
 from constraint import Problem , AllDifferentConstraint, ExactSumConstraint
 
 def CommonSum(n):
-    return int((1 + n * n) * n / 2)
+    return int((1 + n * n) * n // 2)
 
 def msqList(n, pairList):
     problem = Problem()
@@ -29,3 +29,4 @@ def msqList(n, pairList):
     return print (solns)
 
 msqList(4,[[0,13],[1,12],[2,7]])
+# msqList(3,[])
