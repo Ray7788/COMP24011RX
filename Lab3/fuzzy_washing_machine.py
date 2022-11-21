@@ -54,8 +54,13 @@ def get_rule_antecedent_value(ant1: FuzzySet, val1: float, ant2: FuzzySet, val2:
 		return get_disjunction(fuzzify(ant1,val1),fuzzify(ant2,val2))
 	elif operator == "AND":
 		return get_conjunction(fuzzify(ant1,val1),fuzzify(ant2,val2))
-	elif operator == "A":
-		return fuzzify(ant2,val2) ########################!!!!!!!!!!!!!!!!!!!!!!!!
+	elif operator == "":
+		if(ant1 == None):
+			return fuzzify(ant2,val2)
+		elif(ant2 == None):
+			return fuzzify(ant1,val1)
+	else:
+		return "Error Input!"
 
 
 # TASK 4: 2 marks
@@ -70,17 +75,17 @@ def get_rule_output_value(rule_number: int, rule_antecedent_value: float) -> flo
 # level = [[0,2.5],[1.0,11.00]]
 def configure_washing_machine(dirt_amount: float, fabric_weight: float) -> tuple:
 	all_antecedents = [0.0,1.0,2.0,3.0] # this should be set to a List containing the antecedent values for all rules
-	all_outputs = [0.0,1.0,2.0,3.0] # this should be set to a List containing the output values for all rules
+	all_outputs = [] # this should be set to a List containing the output values for all rules
 
-	all_antecedents[0] = get_rule_antecedent_value(None,0.0,very_delicate_set,fabric_weight,"A") 
+	all_antecedents[0] = get_rule_antecedent_value(None,dirt_amount,very_delicate_set,fabric_weight,"") 
 	all_antecedents[1] = get_rule_antecedent_value(almost_clean_set,dirt_amount,delicate_set,fabric_weight,"OR")
 	all_antecedents[2] = get_rule_antecedent_value(dirty_set,dirt_amount,delicate_set,fabric_weight,"AND")
 	all_antecedents[3] = get_rule_antecedent_value(dirty_set,dirt_amount,not_delicate_set,fabric_weight,"AND")
 
-	all_outputs[0] = get_rule_output_value(1,all_antecedents[0]) 
-	all_outputs[1] = get_rule_output_value(2,all_antecedents[1])
-	all_outputs[2] = get_rule_output_value(3,all_antecedents[2])
-	all_outputs[3] = get_rule_output_value(4,all_antecedents[3]) 
+	n = 1
+	for value in all_antecedents:
+		all_outputs.append(get_rule_output_value(n,value))
+		n += 1
 
 	return (all_antecedents, all_outputs)
 
@@ -89,9 +94,17 @@ def configure_washing_machine(dirt_amount: float, fabric_weight: float) -> tuple
 # Implement function that computes the weighted average over all rules
 def get_weighted_average(all_antecedents: List, all_outputs: List) -> float:
 	weighted_average = 0
-	for i in range(1,len(all_outputs)):
-		weighted_average += all_outputs[i] / all_antecedents[i]
-	return weighted_average / 3
+	antecedents = 0
+	outputs = 0
+
+	for i in all_antecedents:
+		antecedents += i
+
+	for i in all_outputs:
+		outputs += i
+
+	weighted_average = outputs / antecedents
+	return weighted_average 
 
 
 # TASK 7: 3 marks
