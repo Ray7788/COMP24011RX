@@ -37,7 +37,21 @@ def nn(des1, des2, threshold_value) -> list:
 
 def nndr(des1, des2, threshold_value) -> list:
     bf = cv2.BFMatcher()
-    return []
+    matches = bf.knnMatch(des1, des2, k = 2)
+    matchSet = []
+    
+    for match in range(0,len(matches)):
+        
+        neighborMatch = matches[match]
+
+        ratio = neighborMatch[0].distance / neighborMatch[1].distance 
+        
+        if ratio < threshold_value:
+            matchSet.append(neighborMatch[0])
+        else:
+            matchSet.append([])
+
+    return matchSet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # vim:set et sw=4 ts=4:
