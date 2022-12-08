@@ -23,11 +23,14 @@ def nn(des1, des2, threshold_value) -> list:
     matches = bf.knnMatch(des1, des2, k = 1)
     matchSet = []
     
-    for i in range(0,len(matches)):
+    for match in range(0,len(matches)):
         matches_curr = []
-        for match in matches[i]:
-            if threshold_value == -1:
-                matches_curr.append(match[i][0])
+        
+        if threshold_value == -1:
+            matches_curr.append(matches[match][0])
+        elif threshold_value != -1 and match[match][0].distance < threshold_value:
+            matches_curr.append(matches[match][0])
+
         matchSet.append(matches_curr)
     return matchSet
 
