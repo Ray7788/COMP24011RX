@@ -10,6 +10,7 @@ def dist_thresholding(des1, des2, threshold_value) -> list:
 
     for i in range(0,len(matches)):
         matches_curr = []
+        
         for match in matches[i]:
             if match.distance < threshold_value:
                 matches_curr.append(match)
@@ -28,7 +29,7 @@ def nn(des1, des2, threshold_value) -> list:
         
         if threshold_value == -1:
             matches_curr.append(matches[match][0])
-        elif threshold_value != -1 and match[match][0].distance < threshold_value:
+        elif threshold_value != -1 and matches[match][0].distance < threshold_value:
             matches_curr.append(matches[match][0])
 
         matchSet.append(matches_curr)
@@ -41,13 +42,13 @@ def nndr(des1, des2, threshold_value) -> list:
     matchSet = []
     
     for match in range(0,len(matches)):
-        
         neighborMatch = matches[match]
-
         ratio = neighborMatch[0].distance / neighborMatch[1].distance 
         
         if ratio < threshold_value:
             matchSet.append(neighborMatch[0])
+        elif threshold_value == -1:
+            matchSet.append(neighborMatch[0])            
         else:
             matchSet.append([])
 
