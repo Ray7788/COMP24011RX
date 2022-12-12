@@ -3,9 +3,11 @@ import cv2
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# distance thresholding
 def dist_thresholding(des1, des2, threshold_value) -> list:
     bf = cv2.BFMatcher()
     matches = bf.knnMatch(des1, des2, k = len(des1))
+    # save matches
     matchSet = []
 
     for i in range(0,len(matches)):
@@ -19,6 +21,7 @@ def dist_thresholding(des1, des2, threshold_value) -> list:
         matchSet.append(matches_curr)
     return matchSet
 
+# nearest neighbour
 def nn(des1, des2, threshold_value) -> list:
     bf = cv2.BFMatcher()
     matches = bf.knnMatch(des1, des2, k = 1)
@@ -35,7 +38,7 @@ def nn(des1, des2, threshold_value) -> list:
         matchSet.append(matches_curr)
     return matchSet
 
-
+# nearest neighbour distance ratio
 def nndr(des1, des2, threshold_value) -> list:
     bf = cv2.BFMatcher()
     matches = bf.knnMatch(des1, des2, k = 2)
